@@ -1,3 +1,5 @@
+#!/bin/bash
+
 BASEDIR="$( cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PARENT=$BASEDIR/..
 echo BASEDIR $BASEDIR
@@ -70,9 +72,10 @@ done
 
 if [ "$continue" = "TRUE" ]
 then
-java -DWIPERDOG_HOME=$BASEDIR/.. -classpath lib/java/bundle.a/groovy-all-2.2.1.jar groovy.ui.GroovyMain $BASEDIR/uninstall.groovy $uninstall_service $delete_data $delete_files
-#	groovy -DWIPERDOG_HOME=$BASEDIR/.. $BASEDIR/uninstall.groovy $uninstall_service $delete_data $delete_files
+    java -DWIPERDOG_HOME=$BASEDIR -classpath $BASEDIR/lib/java/bundle.a/groovy-all-2.2.1.jar:$BASEDIR/lib/java/bundle.a/ivy-2.4.0-rc1.jar groovy.ui.GroovyMain $BASEDIR/uninstall.groovy $uninstall_service $delete_data $delete_files
+
+	#$BASEDIR/bin/groovy -DWIPERDOG_HOME=$BASEDIR -classpath lib/java/bundle.a/groovy-all-2.2.1.jar:lib/java/bundle.a/ivy-2.4.0-rc1.jar $BASEDIR/uninstall.groovy $uninstall_service $delete_data $delete_files
+	#$BASEDIR/bin/groovy -DWIPERDOG_HOME=$BASEDIR $BASEDIR/uninstall.groovy $uninstall_service $delete_data $delete_files
+
 fi
-
-
 

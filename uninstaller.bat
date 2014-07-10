@@ -1,7 +1,6 @@
 @ECHO OFF
-SET BASEDIR="%~dp0"
+SET BASEDIR=%~dp0
 SET PARENT=$BASEDIR\..
-echo BASEDIR %BASEDIR%
 :: Check Wiperdog service installed
 for /f "tokens=4*" %%a in ('sc query Wiperdog ^| findstr STATE') do set WIPER_SERVICE_STATUS=%%a
 IF "%WIPER_SERVICE_STATUS%"=="" (
@@ -58,7 +57,7 @@ IF "%confirm_delete_files%"=="N" (
   GOTO MAIN_PROG2
 )
 GOTO WHILE_FILE
-MAIN_PROG2	
+:MAIN_PROG2	
 SET delete_data=FALSE
 :WHILE_MONGO
 SET /P confirm_delete_data=Do you want to delete all wiperdog's data in mongodb? (y/n)
@@ -79,7 +78,7 @@ IF "%confirm_delete_data%"=="N" (
   GOTO MAIN_PROG3
 )
 GOTO WHILE_MONGO
-MAIN_PROG3
+:MAIN_PROG3
 
 :: Final confirm 
 echo ======================================================================================
@@ -90,4 +89,6 @@ echo Delete Wiperdog's files: %delete_files%
 echo =======================================================================================
 echo "Press any key to continue or CTRL+C to exit...
 PAUSE
-java -DWIPERDOG_HOME=%BASEDIR%/.. -classpath lib/java/bundle.a/groovy-all-2.2.1.jar groovy.ui.GroovyMain %BASEDIR%/uninstall.groovy %uninstall_service% %delete_data% %delete_files%
+
+%BASEDIR%\bin\groovy.bat -DWIPERDOG_HOME=%BASEDIR% %BASEDIR%/lib/java/bundle.a/ivy-2.4.0-rc1.jar %BASEDIR%\uninstall.groovy %uninstall_service% %delete_data% %delete_files%
+

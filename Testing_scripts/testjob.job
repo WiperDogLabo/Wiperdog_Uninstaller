@@ -1,0 +1,5 @@
+JOB = [name: "testjob"]
+FETCHACTION = {
+	return [a:1 ,b:2]
+}
+DEST=parameters.dest
